@@ -30,7 +30,7 @@ const QUESTIONS = [
   },
   {
     id: 4,
-    question: "Being a parent rarely makes me feel truly satisfied.  ",
+    question: "Being a parent rarely makes me feel truly satisfied.",
     type: "buttons",
     options: ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'],
     field: "q2"
