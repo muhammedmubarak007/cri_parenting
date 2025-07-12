@@ -75,7 +75,7 @@ function App() {
     e.preventDefault();
     setSubmissionState({ isSubmitting: true, error: null });
 
-    const url = "https://script.google.com/macros/s/AKfycbwehShdAjdIQiWjt31_nGGhAfNL-pOYiIaLsebLYT0WXJ2laamXQSOGQUZTStF4Kl251A/exec";
+    const url = "https://script.google.com/macros/s/AKfycbxbWJOUC_mvBJSAlIJvPdTaOO_KZ2fFZLqueytpXZzUFHh8wgZOaevBwubQs0KsIYUhkg/exec";
 
     try {
       const response = await fetch(url, {
