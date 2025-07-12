@@ -23,21 +23,21 @@ const QUESTIONS = [
   },
   {
     id: 3,
-    question: "Overall, I am dissatisfied with myself.",
+    question: "I often question whether I have the skills to be a good parent. ",
     type: "buttons",
     options: ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'],
     field: "q1"
   },
   {
     id: 4,
-    question: "I often feel that I lack good qualities. ",
+    question: "Being a parent rarely makes me feel truly satisfied.  ",
     type: "buttons",
     options: ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'],
     field: "q2"
   },
   {
     id: 5,
-    question: "At times I think I am no good at all.",
+    question: "I frequently feel anxious or frustrated about my parenting. ",
     type: "buttons",
     options: ['Strongly Disagree', 'Disagree', 'Agree', 'Strongly Agree'],
     field: "q3"
@@ -75,7 +75,7 @@ function App() {
     e.preventDefault();
     setSubmissionState({ isSubmitting: true, error: null });
 
-    const url = "https://script.google.com/macros/s/AKfycbwZQNOG4TjQSl0CgLy6GW7xzpQqfu3iBTbFiiGlude82Gx_YMAOxKO7utBdiIhLB80G1g/exec";
+    const url = "https://script.google.com/macros/s/AKfycbzFzazwi05qVef9h1g0h1CSF2ymdpegxSlSL2woPfvgPxww9OJBmyz1YM1ML7fTUU534A/exec";
 
     try {
       const response = await fetch(url, {
