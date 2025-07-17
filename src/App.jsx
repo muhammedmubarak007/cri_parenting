@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css'; // Import styles here
 import './App.css';
 
 const QUESTIONS = [
@@ -16,28 +18,34 @@ const QUESTIONS = [
   },
   {
     id: 2,
+    question: "What is your phone number?",
+    type: "phone",
+    field: "phone"
+  },
+  {
+    id: 3,
     question: "What is your gender?",
     type: "buttons",
     options: ["Male", "Female", "Other"],
     field: "gender"
   },
   {
-    id: 3,
-    question: "I often question whether I have the skills to be a good parent. ",
+    id: 4,
+    question: "I often question whether I have the skills to be a good parent.",
     type: "buttons",
     options: ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'],
     field: "q1"
   },
   {
-    id: 4,
+    id: 5,
     question: "Being a parent rarely makes me feel truly satisfied.",
     type: "buttons",
     options: ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'],
     field: "q2"
   },
   {
-    id: 5,
-    question: "I frequently feel anxious or frustrated about my parenting. ",
+    id: 6,
+    question: "I frequently feel anxious or frustrated about my parenting.",
     type: "buttons",
     options: ['Strongly Disagree', 'Disagree', 'Agree', 'Strongly Agree'],
     field: "q3"
@@ -75,7 +83,7 @@ function App() {
     e.preventDefault();
     setSubmissionState({ isSubmitting: true, error: null });
 
-    const url = "https://script.google.com/macros/s/AKfycbzjvP2ZRVY_U5Rq9QbEjCdDQiQBlcCrnbZFgEvTceG8SAYYJDrBCvV7MERrLeeLSfAqSw/exec";
+    const url = "https://script.google.com/macros/s/AKfycbwgme-akmPU2Jk9hocanoVaAHmlZayF9fm2rnZI6iSLb4uCCrArTkxy7mAuX89iGuCUbA/exec";
 
     try {
       const response = await fetch(url, {
@@ -86,6 +94,7 @@ function App() {
         body: new URLSearchParams({
           Name: formData.name,
           Age: formData.age,
+          Phone: formData.phone,
           Gender: formData.gender,
           Question1: formData.q1,
           Question2: formData.q2,
@@ -93,25 +102,19 @@ function App() {
         })
       });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
       const result = await response.json();
 
       if (result.status === "success") {
         window.open("https://www.crink.app/book-therapy", "_blank");
-     
-  // Reset form
-  setFormData(
-    QUESTIONS.reduce((acc, question) => {
-      acc[question.field] = '';
-      return acc;
-    }, {})
-  );
-  setCurrentQuestionIndex(0);
-  setSubmissionState({ isSubmitting: false, error: null });
-     
+
+        setFormData(
+          QUESTIONS.reduce((acc, question) => {
+            acc[question.field] = '';
+            return acc;
+          }, {})
+        );
+        setCurrentQuestionIndex(0);
+        setSubmissionState({ isSubmitting: false, error: null });
       } else {
         throw new Error(result.message || "Submission failed");
       }
@@ -127,10 +130,11 @@ function App() {
   const renderQuestion = () => {
     switch (currentQuestion.type) {
       case "text1":
+      case "text2":
         return (
           <div className="input-container">
             <input
-              type="text"
+              type={currentQuestion.type === "text2" ? "number" : "text"}
               className="text-input"
               value={formData[currentQuestion.field]}
               onChange={(e) => handleInputChange(currentQuestion.field, e.target.value)}
@@ -138,15 +142,15 @@ function App() {
             />
           </div>
         );
-         case "text2":
+      case "phone":
         return (
           <div className="input-container">
-            <input
-              type="number"
-              className="text-input"
-              value={formData[currentQuestion.field]}
-              onChange={(e) => handleInputChange(currentQuestion.field, e.target.value)}
-              placeholder="Type your answer"
+            <PhoneInput
+              country={'in'}
+              value={formData.phone}
+              onChange={value => handleInputChange('phone', value)}
+              inputClass="text-input"
+              inputProps={{ required: true }}
             />
           </div>
         );
