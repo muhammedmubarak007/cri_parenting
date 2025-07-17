@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css'; // Import styles here
+import 'react-phone-input-2/lib/style.css';
 import './App.css';
 
 const QUESTIONS = [
@@ -142,15 +142,15 @@ function App() {
             />
           </div>
         );
-      case "phone":
+       case "phone":
         return (
           <div className="input-container">
             <PhoneInput
               country={'in'}
-              value={formData.phone}
-              onChange={value => handleInputChange('phone', value)}
+              value={formData[currentQuestion.field]}
+              onChange={(phone) => handleInputChange(currentQuestion.field, phone)}
               inputClass="text-input"
-              inputProps={{ required: true }}
+              inputStyle={{ width: '100%' }}
             />
           </div>
         );
